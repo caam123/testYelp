@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>YelpAPI</title>
+</head>
+<body>
+    
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script>
+
+
+navigator.geolocation.getCurrentPosition(
+        function (position) {            
+            myLat = position.coords.latitude;
+            myLng = position.coords.longitude;
+            console.log("myLat", myLat);
+        }
+        
+    );
+
+
+
+
+
+var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=delis&latitude=37.786882&longitude=-122.399972";
+
+
+$.ajax({
+            url: myurl,
+            headers: {
+             'Authorization':'Bearer yQLJGiFt5Hzv7UJ9fnsCOPylAZXm7fncx_iHnl1d5iExf4SgKCQDDUhamxxVtSBngwsoVVA6YxZ-_mTvsoK2b3_MwKYeDNqufYwqpAdMlGGaWck9ZcqaOFACuPi9XHYx',
+         },
+            method: 'GET'
+        })
+        .then(function(response){
+        console.log(response);
+
+        });
+
+
+var options = {
+enableHighAccuracy: true,
+timeout: 5000,
+maximumAge: 0
+};
+
+function success(pos) {
+  var crd = pos.coords;
+
+  console.log('Your current position is:');
+  console.log('Latitude : ' + crd.latitude);
+  console.log('Longitude: ' + crd.longitude);
+  console.log('More or less ' + crd.accuracy + ' meters.');
+};
+
+function error(err) {
+  console.warn('ERROR(' + err.code + '): ' + err.message);
+};
+
+navigator.geolocation.getCurrentPosition(success, error, options);
+
+</script>
+
+</html>
